@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>向商户付款</title>
+	<meta http-equiv="content-Type" content="text/html; charset=utf-8">
+	<meta http-equiv="pragma" content="no-cache">
+	<meta name="robots" content="all">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+    <meta name="format-detection" content="telephone=no" />
+	<link rel="stylesheet" href="/Public/Wap/css/reset.min.css">
+	<link rel="stylesheet" href="/Public/Wap/css/style.css">
+	<script src="/Public/Admin/js/jquery.min.js"></script>
+	<script src="https://as.alipayobjects.com/g/component/antbridge/1.1.1/antbridge.min.js"></script>
+</head>
+<body>
+<!--<img src="images/share.jpg" style="position:fixed; top:-500px; opacity:0; left:0; width:320px; z-index:0;">-->
+<!-- 横屏显示和loading start -->
+
+<div class="loading">
+	<div class="loadbox">
+		<div class="loadtext">Loading</div>
+		<div class="circle1"></div>
+		<div class="circle2"></div>
+	</div>
+</div>
+<!-- 横屏显示和Loading end -->
+
+<!-- 首页 -->
+<section id="pay">
+	<div class="shop_name">
+		<img src="/Public/Wap/images/shop_name.png">
+		<span class="name"><?php echo $storeInfo['store_name'];?></span>
+	</div>
+	<form id="myform" action="<?php echo U('alipayCreateTrade')?>" method="post">
+			<input id="total_amount" type="hidden" name="total_amount" >
+			<input type="hidden" name="auth_code" value="<?php echo $authCode?>" />
+			<input type="hidden" name="store_id" value="<?php echo $storeId?>" />
+    	<div class="inputAmount">
+    		输入消费金额
+    		<div class="moneyNum">
+    			<img src="/Public/Wap/images/money_pay.png" alt="">
+    			<span class="line">|</span>
+    			<span class="moneyAmout"></span>
+                
+    		</div>
+    	</div>
+	</form>
+	<div class="support">
+		<span>— 由<span class="orange_color">顺鑫付</span>提供技术支持 —</span>
+	</div>
+	<table>
+		<tbody>
+			<tr>
+				<td class="no1 number">1</td>
+				<td class="no2 number">2</td>
+				<td class="no3 number">3</td>
+				<td class="cancel" rowspan="2"><img class="cancel" src="/Public/Wap/images/cancel.png" alt=""></td>
+			</tr>
+			<tr>
+				<td class="no4 number">4</td>
+				<td class="no5 number">5</td>
+				<td class="no6 number">6</td>
+			</tr>
+			<tr>
+				<td class="no7 number">7</td>
+				<td class="no8 number">8</td>
+				<td class="no9 number">9</td>
+				<td class="confirm" rowspan="2">确定</td>
+			</tr>
+			<tr>
+				<td class="no0 number" colspan="2">0</td>
+				<td class="dot">.</td>
+			</tr>
+		</tbody>
+	</table>
+</section>
+
+<!-- 首页 -->
+
+<!-- <script type="text/javascript" src="/Public/Wap/js/zepto.js"></script> -->
+<script type="text/javascript" src="/Public/Wap/js/rem.js"></script>
+<script type="text/javascript" src="/Public/Wap/js/myJs.js"></script>
+</body>
+</html>
+
+<!-- ================================================
+jQuery Library
+================================================ -->
+<script src="/Public/Admin/js/jquery-form/jquery.form.js"></script>
+<!-- <script type="text/javascript" src="/Public/Wap/js/keyboard.js"></script> -->
+<script>
+
+var myform = $("#myform");
+var isSubmit = false;//默认没有提交
+
+//调用示例，首先监听AlipayJSBridgeReady事件
+$(function(){
+
+	$("#myform").ajaxForm({
+        dataType: 'json',
+        beforeSubmit : function(){},//ajax动画加载
+        success: function(data)
+        {
+        	//$json = JSON.stringify(data);
+        	var $pay = $(".confirm");
+    	    $pay.css({backgroundColor:'rgb(255,83,20)'});
+    	    isSubmit = false;
+        	if( data.code == 200 && data.status == 200){
+        	    orderInfo = data.data;
+        	    document.addEventListener('AlipayJSBridgeReady', function () {
+                    AlipayJSBridge.call("tradePay", {
+                            //tradeNO: "2016101221001004960252914340"
+                            tradeNO: orderInfo.trade_no
+                    }, function (result) {
+                            //console.log(JSON.stringify(result));
+                            if(result.callbackUrl != ''){
+                                location.href=result.callbackUrl;
+                            }else if(result.resultCode == '9000'){
+                                location.href='<?php echo U('showPayResult')?>?third_order_no=' + orderInfo.trade_no;
+                                //alert('支付成功');
+                            }else if(result.resultCode == '8000'){
+                                alert('正在处理中');
+                            }else if(result.resultCode == '6001'){
+                                alert('取消支付');
+                            }else if(result.resultCode == '6002'){
+                                alert('网络连接出错');
+                            }else{
+                                //code=4000 支付失败  ,99 用户点击忘记密码
+                                alert('支付失败');
+                            }
+                            //alert(JSON.stringify(result));
+                    });
+                }, false);
+            }else{
+                alert('下单失败');
+            }
+        }
+    });
+
+})
+
+</script>

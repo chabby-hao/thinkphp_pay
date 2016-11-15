@@ -1,0 +1,194 @@
+html,body,section{ width: 100%; height: 100%; overflow: hidden; }
+
+body{ background-color: #fff; font-family: "DroidSansFallback";}
+
+img { pointer-events: none;}
+
+*{   
+    -webkit-touch-callout:none;  /*系统默认菜单被禁用*/   
+    -webkit-user-select:none; /*webkit浏览器*/   
+    -khtml-user-select:none; /*早期浏览器*/   
+    -moz-user-select:none;/*火狐*/   
+    -ms-user-select:none; /*IE10*/   
+    user-select:none;   
+} 
+
+/*loading & hengping*/
+.loading,.cover{ position: fixed; width: 100%; height: 100%; top: 0; left: 0; background-color: #ff802b; z-index: 200; font-size: 16px; }
+.loadbox{ width: 100px; height: 100px; position: fixed; top: 50%; left: 50%; margin: -60px 0 0 -50px; }
+
+
+.loadtext{ width: 100px; height: 40px; line-height: 40px; font-weight: bold; font-size: 25px; color: #fff; margin: 0 auto; text-align: center; }
+.loading .circle1{ background-color: rgba(0,0,0,0); border: 5px solid rgba(255,255,255,0.9); opacity: 0.9; border-right: 5px solid #ff802b; border-radius: 50px; box-shadow: 0 0 35px #fff; width: 50px; height: 50px; margin: 0 auto;
+	animation: c1 1s infinite linear;
+	-webkit-animation: c1 1s infinite linear;
+	-ms-animation: c1 1s infinite linear; 
+	-moz-animation: c1 1s infinite linear;}
+.loading .circle2{ background-color: rgba(0,0,0,0); border: 5px solid rgba(255,255,255,0.9); opacity: 0.9; border-right: 5px solid #ff802b; border-radius: 30px; box-shadow: 0 0 10px #fff; width: 30px; height: 30px; margin: 0 auto; position: relative; top: -50px;
+  	animation: c2 1s infinite linear;
+	-webkit-animation: c2 1s infinite linear;
+	-ms-animation: c2 1s infinite linear;
+	-moz-animation:c2 1s infinite linear;}
+
+/*hengping*/
+@-webkit-keyframes zhuan {
+	0%{-webkit-transform:rotate(-90deg);}
+	50%{-webkit-transform:rotate(0deg);}
+	100%{-webkit-transform:rotate(-90deg);}
+}
+@-ms-keyframes zhuan {
+	0%{-ms-transform:rotate(-90deg);}
+	50%{-ms-transform:rotate(0deg);}
+	100%{-ms-transform:rotate(-90deg);}
+}
+@-moz-keyframes zhuan {
+	0%{-moz-transform:rotate(-90deg);}
+	50%{-moz-transform:rotate(0deg);}
+	100%{-moz-transform:rotate(-90deg);}
+}
+@keyframes zhuan {
+	0%{transform:rotate(-90deg);}
+	50%{transform:rotate(0deg);}
+	100%{transform:rotate(-90deg);}
+}
+
+/*loading 01*/
+@-webkit-keyframes c1 {
+	0% { -webkit-transform:rotate(160deg); opacity:0; box-shadow:0 0 1px #fff; }
+	50% { -webkit-transform:rotate(120deg); opacity:1;}
+	100% { -webkit-transform:rotate(-320deg); opacity:0; }
+}
+@-moz-keyframes c1 {
+	0% { -moz-transform:rotate(160deg); opacity:0; box-shadow:0 0 1px #fff; }
+	50% { -moz-transform:rotate(120deg); opacity:1;}
+	100% { -moz-transform:rotate(-320deg); opacity:0; }
+}
+@-ms-keyframes c1 {
+	0% { -ms-transform:rotate(160deg); opacity:0; box-shadow:0 0 1px #fff; }
+	50% { -ms-transform:rotate(120deg); opacity:1;}
+	100% { -ms-transform:rotate(-320deg); opacity:0; }
+}
+@keyframes c1 {
+	0% {transform:rotate(160deg); opacity:0; box-shadow:0 0 1px #fff; }
+	50% {webkit-transform:rotate(120deg); opacity:1;}
+	100% {transform:rotate(-320deg); opacity:0; }
+}
+
+/*loading 02*/
+@-moz-keyframes c2 {
+	0% { -moz-transform:rotate(0deg); }
+	100% { -moz-transform:rotate(360deg);  }
+}
+@-webkit-keyframes c2 {
+	0% { -webkit-transform:rotate(0deg); }
+	100% { -webkit-transform:rotate(360deg); }
+}
+@-ms-keyframes c2 {
+	0% { -ms-transform:rotate(0deg); }
+	100% { -ms-transform:rotate(360deg);  }
+}
+@keyframes c2 {
+	0% {transform:rotate(0deg); }
+	100% {transform:rotate(360deg); }
+}
+
+/*横屏显示*/
+@media screen and (orientation:landscape){
+	.cover{ display: block; }
+}
+
+
+
+
+body>section{position:absolute;top:0;left:0; }
+
+/*成功付款页面*/
+#page1{
+    z-index:99;
+    background: #f0f2f5;
+	font-weight: bold;
+}
+.success{ position:absolute;left:0;top:18.23%;height: 14.71%; width: 100%;}
+.success img{ height: 100%; width: auto;margin: 0 auto;display: block;}
+.text_money{ position:absolute;left:0;top:33.3%; width: 100%;font-size: 24px;line-height:22px;text-align: center;}
+.text_money span{ margin:0;}
+.text_money span img{ margin:0;border:0;height: 18px;width: auto;}
+.success_tip{ position:absolute;left:0;top:37.62%;height: 22px; width: 100%;font-size: 15px;line-height:22px;text-align: center;color:#999999;}
+
+/*温馨提示*/
+#pay_tip{z-index:99;background: #f0f2f5;}
+.tip_img{ position:absolute;left:0;top:10.57%;height: 15.77%; width: 100%;}
+.tip_img img{ height: 100%; width: auto;margin: 0 auto;display: block;}
+.pay_tip_text{position:absolute;left:0;top:31.72%;width: 100%;line-height:34px;font-size: 15px;text-align: center;color: #999;  font-weight: bold;}
+.orange_color{color:#ff802b;}
+
+/*付款页面*/
+#pay{z-index:99;background: #f0f2f5;}
+.shop_name{ position:absolute;left:50%;top:5.29%;/*height: 6.17%; */height: 0.7rem; width: 2.6rem;text-align: center;font-size: 0.28rem;line-height: 0.7rem;-webkit-transform: translateX(-50%); font-weight: bold;}
+.shop_name img{ height: 100%; width: auto;float:left;}
+.shop_name span{ float:left;margin-left:0.13rem; }
+.inputAmount{ position:absolute;left:50%;top:16.74%;height: 0.86rem; width: 6.4rem;font-size: 0.26rem;line-height: 0.88rem;-webkit-transform: translateX(-50%);border: 1px solid #d8d9dc;border-radius: 8px;color: #666666;padding: 0 0.2rem; font-weight: bold;background: #fff;}
+.inputAmount .moneyNum{float: right;height: 0.86rem;font-size: 0.26rem;line-height: 0.86rem;text-align: right;color: #333;width: 3rem;overflow: hidden;}
+.inputAmount .moneyNum span{float: right;}
+.inputAmount .moneyNum span.line{display: none;}
+.inputAmount .moneyNum img{height: 0.22rem;margin-right:5px;}
+
+.support{ position:absolute;left:50%;bottom:4.5rem;height: 0.66rem; width: 4rem;font-size: 0.26rem;line-height: 0.66rem;-webkit-transform: translateX(-50%); font-weight: bold;color: #999;display: none; text-align: center}
+
+table{position:absolute;left:0;bottom:0;width: 100%;display: none;background: #fff;}
+table td{height: 1.1rem;width:1.8rem;line-height: 1.1rem;border: 1px solid #d9d9d9;color: #333;text-align: center;font-size: 0.3rem;}
+.cancel img{width: 0.53rem;height: 0.38rem;}
+table .confirm{background: #ff5314;color: #fff;font-size: 0.34rem;font-weight: bold;}
+
+
+
+.line{-webkit-animation: Opacity 1.2s infinite linear;font-weight: normal;color:#333;}
+@-webkit-keyframes Opacity {
+	0%,20%,80%,100% { opacity: 1; }
+	40% { opacity: 0.2; }
+	60% { opacity: 0.2; }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

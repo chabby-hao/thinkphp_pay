@@ -1,0 +1,131 @@
+<?php 
+use Common\Model\SelfUpdateModel;
+?>
+  <!-- Start Row -->
+  <div class="row">
+    
+
+    <div class="col-md-12 col-lg-6">
+      <div class="panel panel-default">
+
+        <div class="panel-title">
+          <?php echo $pageHeaderAction;?>
+          <ul class="panel-tools">
+            <li><a class="icon minimise-tool"><i class="fa fa-minus"></i></a></li>
+            <li><a class="icon expand-tool"><i class="fa fa-expand"></i></a></li>
+            <li><a class="icon closed-tool"><i class="fa fa-times"></i></a></li>
+          </ul>
+        </div>
+
+            <div class="panel-body">
+              <form id="myform" method="post" action="<?php echo U('editHandler')?>">
+                <div class="form-group">
+                    <label class="form-label">apk包文件</label>
+                    <a class="file form-control" href="javascript:;">
+                        <input name="file_upload" type="file">点击上传apk
+                    </a>
+                    <span class="help-block showFileName"><?php echo $arrData['apk_filename']?></span>
+				</div>
+				
+				<div class="form-group">
+                  <label class="form-label">更新类型</label>
+                  <div class="radio radio-info radio-inline">
+                        <input name="update_type" type="radio" id="inlineRadio1" value="<?php echo SelfUpdateModel::UPDATE_TYPE_NORMAL?>" name="update_type" <?php if($arrData['update_type'] == SelfUpdateModel::UPDATE_TYPE_NORMAL){?>checked="checked" <?php }?> />
+                        <label for="inlineRadio1"> 普通 </label>
+                  </div>
+                  <div class="radio radio-warning radio-inline">
+                        <input name="update_type" type="radio" id="inlineRadio2" value="<?php echo SelfUpdateModel::UPDATE_TYPE_FORCE?>" name="update_type" <?php if($arrData['update_type'] == SelfUpdateModel::UPDATE_TYPE_FORCE){?>checked="checked" <?php }?>/>
+                        <label for="inlineRadio2"> 强制 </label>
+                  </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="input1" class="form-label">启用状态</label>
+                    <div class="radio radio-danger radio-inline">
+                        <input name="is_use" type="radio" id="inlineRadio3" value="<?php echo SelfUpdateModel::IS_USE_CLOSE?>" name="is_use" <?php if($arrData['is_use'] == SelfUpdateModel::IS_USE_CLOSE){?>checked="checked" <?php }?> />
+                        <label for="inlineRadio3"> 停用 </label>
+                    </div>
+                    <div class="radio radio-success radio-inline">
+                        <input name="is_use" type="radio" id="inlineRadio4" value="<?php echo SelfUpdateModel::IS_USE_OPEN?>" name="is_use" <?php if($arrData['is_use'] == SelfUpdateModel::IS_USE_OPEN){?>checked="checked" <?php }?>/>
+                        <label for="inlineRadio4"> 启用 </label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                  <label for="input1" class="form-label">软件大小</label>
+                  <input name="bsize" value="<?php echo $arrData['bsize']?>" type="text" class="form-control require" id="input1">
+                </div>
+                <div class="form-group">
+                  <label for="input2" class="form-label">系统版本号</label>
+                  <input name="vercode" value="<?php echo $arrData['vercode'] ?>" type="text" class="form-control require" id="input2">
+                </div>
+                <div class="form-group">
+                  <label for="input2" class="form-label">用户版本号</label>
+                  <input name="version" value="<?php echo $arrData['version'] ?>" type="text" class="form-control require" id="input2">
+                </div>
+                <div class="form-group">
+                  <label for="input2" class="form-label">包签名md5</label>
+                  <input name="certmd5" value="<?php echo $arrData['certmd5'] ?>" type="text" class="form-control require" id="input2">
+                </div>
+                <div class="form-group">
+                  <label for="input2" class="form-label">包名</label>
+                  <input name="package" value="<?php echo $arrData['package'] ?>" type="text" class="form-control require" id="input2">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">更新日志</label>
+                  <textarea name="update_desc" class="form-control" rows="3"><?php echo $arrData['update_desc']?></textarea>
+                </div>
+<!--                 <div class="checkbox checkbox-primary"> -->
+<!--                     <input id="checkbox102" type="checkbox" checked> -->
+<!--                     <label for="checkbox102">Remember me</label> -->
+<!--                 </div> -->
+                <button type="submit" class="btn btn-default">提交</button>
+              </form>
+
+            </div>
+
+      </div>
+    </div>
+    
+  </div>
+  <!-- End Row -->
+  
+<script src="/Public/Admin/js/jquery-form/jquery.form.js"></script>
+<script src="/Public/Admin/js/helper.js"></script>
+<script>
+$(function(){
+
+	
+	$(".file").on("change","input[type='file']",function(){
+	    var filePath=$(this).val();
+	    if(filePath.indexOf("apk")!=-1){
+		    var input_hidden = $('<input name="new_file" value="1" type="hidden" />');
+		    $("#myform").append(input_hidden);
+	        $(".fileerrorTip").html("").hide();
+	        var arr=filePath.split('\\');
+	        var fileName=arr[arr.length-1];
+	        $(".showFileName").html(fileName);
+	    }else{
+	        $(".showFileName").html("上传文件类型错误");
+	        return false;
+	    }
+	})
+	
+    $("#myform").ajaxForm({
+        dataType: 'json',
+        beforeSubmit : function()
+        {
+            return true;
+        },//ajax动画加载
+        success: function(data)
+        {
+            if(ajax_check_res(data)){
+                
+            }
+        }
+    });
+
+
+	
+});
+</script>

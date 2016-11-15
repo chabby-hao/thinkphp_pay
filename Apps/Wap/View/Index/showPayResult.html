@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>收款成功</title>
+	<meta http-equiv="content-Type" content="text/html; charset=utf-8">
+	<meta http-equiv="pragma" content="no-cache">
+	<meta name="robots" content="all">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+    <meta name="format-detection" content="telephone=no" />
+	<link rel="stylesheet" href="/Public/Wap/css/reset.min.css">
+	<link rel="stylesheet" href="/Public/Wap/css/style.css">
+</head>
+<body>
+<!--<img src="images/share.jpg" style="position:fixed; top:-500px; opacity:0; left:0; width:320px; z-index:0;">-->
+<!-- 横屏显示和loading start -->
+
+<div class="loading">
+	<div class="loadbox">
+		<div class="loadtext">Loading</div>
+		<div class="circle1"></div>
+		<div class="circle2"></div>
+	</div>
+</div>
+<!-- 横屏显示和Loading end -->
+
+<!-- 首页 -->
+<section id="page1">
+	<div class="success"><img src="/Public/Wap/images/success.png"></div>
+	<div class="text_money">
+		<span><img src="/Public/Wap/images/money.png" alt=""></span>
+		<span class="money"><?php echo $orderData['total_amount']?></span>
+	</div>
+	<div class="success_tip">收款成功</div>
+</section>
+
+<!-- 首页 -->
+
+<script type="text/javascript" src="/Public/Wap/js/zepto.js"></script>
+<script type="text/javascript" src="/Public/Wap/js/myJs.js"></script>
+</body>
+</html>

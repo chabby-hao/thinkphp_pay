@@ -1,0 +1,70 @@
+<?php 
+use Common\Extend\Helper;
+use Root\Controller\UpdateController;
+use Common\Model\SelfUpdateModel;
+?>
+<div class="container-padding">
+
+
+  <!-- Start Row -->
+  <div class="row">
+
+    <!-- Start Panel -->
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-title">
+          <?php echo $pageHeaderAction;?>
+        </div>
+        <div class="panel-body table-responsive">
+
+            <table id="example0" class="table display">
+                <tbody>
+                <tr>
+                    <td><?php echo date('Y-m-d H:i:s', $arrData['update_time'])?></td>
+                    <td><?php echo $arrData['apk_filename']?> 文件大小：（ <?php echo Helper::sizeInfo($arrData['bSize']);?>、系统版本号：<?php echo $arrData['vercode']?> 、用户版本号：<?php echo $arrData['version']?>、MD5：<?php echo $arrData['certmd5']?> ） <br/>下载地址：<?php echo Helper::getApkUrl($arrData['apk_path'])?></td>
+                    <td>
+                        <button onclick="javascript:location.href='<?php echo U('edit')?>'" class="btn btn-primary edit">编辑</button>
+                        <?php if($arrData['is_use'] == SelfUpdateModel::IS_USE_CLOSE){?>
+                            <button class="btn btn-success edit_use">启用</button>
+                        <?php }elseif ($arrData['is_use'] == SelfUpdateModel::IS_USE_OPEN){?>
+                            <button class="btn btn-danger edit_use">停用</button>
+                        <?php }?>
+                    </td>
+                </tr>
+                <tr>
+                    <td>更新日志</td>
+                    <td colspan="2"><textarea disabled="disabled" rows="5" class="col-sm-12"><?php echo $arrData['update_desc']?></textarea></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+      </div>
+    </div>
+    <!-- End Panel -->
+
+  </div>
+  <!-- End Row -->
+<script src="/Public/Admin/js/helper.js"></script>
+  <script>
+  $(".edit_use").click(function(){
+	    var _this_ = $(this);
+	    $.ajax({
+	        url:'<?php echo U('editUse')?>',
+	        success:function(data){
+	            if(ajax_check_res(data))
+	            {
+	                var is_use = data.data;
+	                if(is_use == '<?php echo SelfUpdateModel::IS_USE_CLOSE ?>')
+	                {
+		                _this_.text("启用");
+		                _this_.removeClass("btn-danger").addClass("btn-success");
+	                }else{
+	                	_this_.text("停用");
+		                _this_.removeClass("btn-success").addClass("btn-danger");
+	                }
+	            }  
+	        }
+		})
+  })
+
+  </script>
